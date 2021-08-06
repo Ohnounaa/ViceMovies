@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ViceMovies</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="most_popular">Most Popular</string>
+</resources>
