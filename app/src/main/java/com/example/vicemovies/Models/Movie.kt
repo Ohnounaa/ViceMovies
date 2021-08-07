@@ -8,7 +8,7 @@ data class Movie(
     val adult: Boolean,
     val backdrop_path: String,
     //@TypeConverters(MovieTypeConverters::class)
-  //  val genre_ids: List<Int>,
+   // val genre_ids: List<Int>,
     @PrimaryKey val id: Int,
     val original_language: String,
     val original_title: String,

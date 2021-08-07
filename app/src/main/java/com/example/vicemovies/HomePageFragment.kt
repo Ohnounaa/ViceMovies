@@ -35,6 +35,7 @@ class HomePageFragment: Fragment() {
             false
         )
         fragmentLayout = binding.root
+
         homeViewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
         homeViewModel.currentMovies?.observe(
             viewLifecycleOwner, { movies ->
@@ -52,27 +53,26 @@ class HomePageFragment: Fragment() {
                 }
             }
         )
-
         return fragmentLayout
     }
 
     inner class MovieViewHolder(private val binding: MovieViewHolderBinding) : RecyclerView.ViewHolder(binding.root) {
-        init { binding.movieViewModel = movieViewModel }
-
-        private fun setMovieViewModel(movie: Movie) {
-            binding.apply {
-                movieViewModel?.title?.value = movie.title
-                movieViewModel?.movieImageUrl?.value = imageUrlStem + movie.poster_path
-            }
-        }
+      //  init { binding.movieViewModel = movieViewModel }
 
         fun bind(movie: Movie) {
-           setMovieViewModel(movie)
+          // setMovieViewModel(movie)
             binding.apply {
-                movieViewModel?.movieImageUrl?.value?.let { loadImage(movieImage, it) }
-                movieImage.setOnClickListener{
-                    movieViewModel?.selectMovie(movie)
-                }
+
+               // movieViewModel?.title?.value = movie.title
+              //  movieViewModel?.movieImageUrl?.value = imageUrlStem + movie.poster_path
+              //  movieViewModel?.movieImageUrl?.value?.let { loadImage(movieImage, it) }
+            movieViewModel.movieImageUrl?.value = imageUrlStem + movie.poster_path
+                movieViewModel.movieImageUrl?.let { it.value?.let { it1 ->
+                    loadImage(movieImage,
+                        it1
+                    )
+                } }
+                movieImage.setOnClickListener{ movieViewModel?.selectMovie(movie) }
                 executePendingBindings()
             }
 

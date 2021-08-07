@@ -18,7 +18,16 @@ class HomePageViewModel: ViewModel() {
     init {
         getConfigurationData()
         getNowPlayingMovies("1")
+        getPopularMovies("1")
     }
+
+    private fun getPopularMovies(pageNumber: String) {
+        viewModelScope.launch {
+            val popularMoviesAPIData = repository.getPopularMoviesFromAPI(pageNumber)
+            popularMovies = popularMoviesAPIData
+        }
+    }
+
     private fun getConfigurationData() {
         viewModelScope.launch{
             val configDataFromAPI = repository.getConfigurationDataFromAPI()
@@ -29,9 +38,8 @@ class HomePageViewModel: ViewModel() {
     private fun getNowPlayingMovies(pageNumber: String)  {
         viewModelScope.launch {
             val currentMoviesAPIData = repository.getNowPlayingMoviesFromAPI(pageNumber)
-            val popularMoviesAPIData = repository.getPopularMoviesFromAPI(pageNumber)
             currentMovies = currentMoviesAPIData
-            popularMovies = popularMoviesAPIData
+
         }
     }
 

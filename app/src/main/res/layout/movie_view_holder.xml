@@ -2,11 +2,11 @@
 <layout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
+    <!--<data>
         <variable
             name="movieViewModel"
             type="com.example.vicemovies.MovieViewModel" />
-    </data>
+    </data>-->
     <androidx.cardview.widget.CardView
         android:layout_margin="25dp"
         android:layout_height="match_parent"
@@ -20,7 +20,6 @@
             android:layout_height="250dp">
             <ImageButton
                 android:padding="2dp"
-                android:src="@{movieViewModel.movieImageUrl}"
                 android:id="@+id/movie_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

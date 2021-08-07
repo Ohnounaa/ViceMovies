@@ -2,34 +2,85 @@
 <layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <data>
+    <!--<data>
         <variable
             name="movieViewModel"
             type="com.example.vicemovies.MovieViewModel" />
-    </data>
+    </data> -->
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/detail_container"
+        android:background="@drawable/purple_gradient"
         android:layout_width="match_parent"
+        android:layout_margin="5dp"
         android:layout_height="match_parent">
-    <TextView
-        android:id="@+id/movie_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/red"
-        android:textColor="@color/red"
-        android:textSize="16sp"
-        android:text="HELLO DOLLY"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
-    <ImageView
-        android:padding="2dp"
-        android:src="@{movieViewModel.movieImageUrl}"
-        android:id="@+id/movie_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/movie_title"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        <TextView
+            android:id="@+id/movie_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="3dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/movie_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/movie_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+        <LinearLayout
+            android:id="@+id/rating_and_release_date_container"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:padding="5dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/movie_image"
+            app:layout_constraintTop_toBottomOf="@id/movie_image">
+            <TextView
+                android:id="@+id/release_date"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <TextView
+                android:id="@+id/rating"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/ratings_circle"
+               android:layout_marginHorizontal="25dp"
+                android:paddingTop="25dp"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/genres"
+                android:text="HELLO"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:padding="5dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/movie_overview"
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="normal"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/rating_and_release_date_container"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

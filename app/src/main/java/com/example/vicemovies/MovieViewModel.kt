@@ -11,6 +11,10 @@ import com.squareup.picasso.Picasso
 
 class MovieViewModel: ViewModel() {
     var title: MutableLiveData<String>? = MutableLiveData()
+    var overview: MutableLiveData<String>? = MutableLiveData()
+    var release_date: MutableLiveData<String> = MutableLiveData()
+    var genre_ids: MutableLiveData<List<Int>> = MutableLiveData()
+
     var movieImageUrl: MutableLiveData<String>? = MutableLiveData()
 
     var film: Movie? = null

@@ -2,7 +2,6 @@ package com.example.vicemovies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
@@ -23,7 +22,11 @@ class MainActivity : AppCompatActivity() {
         movieViewModel.selectedMovie.observe(
             this, Observer { movie ->
                         val detailFragment =
-            DetailFragment.newInstance(movie.title)
+            DetailFragment.newInstance(movie.title,
+                movie.poster_path,
+                movie.overview,
+                movie.release_date,
+            movie.vote_average)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, detailFragment)
@@ -31,8 +34,5 @@ class MainActivity : AppCompatActivity() {
             .commit()
             }
         )
-
-
-
     }
 }
