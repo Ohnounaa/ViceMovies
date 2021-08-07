@@ -41,6 +41,15 @@ class HomePageFragment: Fragment() {
             }
         )
 
+        homeViewModel.popularMovies?.observe(
+            viewLifecycleOwner, {
+                movies -> binding.popularMovieCollection.apply{
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                adapter = MovieAdapter(movies)
+            }
+            }
+        )
+
         return fragmentLayout
     }
 

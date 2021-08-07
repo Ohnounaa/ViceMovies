@@ -15,7 +15,6 @@ class MovieViewModel: ViewModel() {
 @BindingAdapter("android:src")
 fun loadImage(iv: ImageView, url: String) {
     Picasso
-        .with(iv.context)
-        .load(url).centerCrop().resize(500, 500).into(iv)
+        .with(iv.context).load(url).resize(500,750).into(iv)
 }
 
