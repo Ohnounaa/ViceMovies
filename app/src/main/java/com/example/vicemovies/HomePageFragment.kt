@@ -19,6 +19,10 @@ class HomePageFragment: Fragment() {
     private lateinit var homeViewModel: HomePageViewModel
     lateinit var fragmentLayout: View
 
+    private val movieViewModel:MovieViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,16 +57,26 @@ class HomePageFragment: Fragment() {
     }
 
     inner class MovieViewHolder(private val binding: MovieViewHolderBinding) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.movieViewModel = MovieViewModel()
-        }
+        init { binding.movieViewModel = movieViewModel }
 
-        fun bind(movie: Movie) {
+        private fun setMovieViewModel(movie: Movie) {
             binding.apply {
                 movieViewModel?.title?.value = movie.title
                 movieViewModel?.movieImageUrl?.value = imageUrlStem + movie.poster_path
+            }
+        }
+
+        fun bind(movie: Movie) {
+           setMovieViewModel(movie)
+            binding.apply {
+                movieViewModel?.movieImageUrl?.value?.let { loadImage(movieImage, it) }
+                movieImage.setOnClickListener{
+                    movieViewModel?.selectMovie(movie)
+                }
                 executePendingBindings()
             }
+
+
         }
     }
 

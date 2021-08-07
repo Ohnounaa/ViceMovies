@@ -20,11 +20,11 @@ class MovieViewModel: ViewModel() {
         movieImageUrl?.postValue(film?.poster_path)
     }
 
-
     private val mutableSelectedItem = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> get() = mutableSelectedItem
 
     fun selectMovie(movie: Movie) {
+        Log.d("ALIZA", "OHNOUNA")
         mutableSelectedItem.value = movie
     }
 }

@@ -6,13 +6,8 @@
         <variable
             name="movieViewModel"
             type="com.example.vicemovies.MovieViewModel" />
-        <variable
-            name="bigView"
-            type="com.example.vicemovies.HomePageFragment"
-            />
     </data>
     <androidx.cardview.widget.CardView
-        android:onClick="@{()->movieViewModel.selectMovie()}"
         android:layout_margin="25dp"
         android:layout_height="match_parent"
         android:layout_width="wrap_content"
