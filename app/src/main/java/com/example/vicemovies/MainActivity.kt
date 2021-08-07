@@ -16,5 +16,23 @@ class MainActivity : AppCompatActivity() {
         val homePageViewModel: HomePageViewModel by lazy {
             ViewModelProvider(this).get(HomePageViewModel::class.java)
         }
+
+        val movieViewModel: MovieViewModel by lazy {
+            ViewModelProvider(this).get(MovieViewModel::class.java)
+        }
+
+
+        movieViewModel.selectedMovie.observe(
+            this, {
+                movie ->
+                val detailFragment =
+                    DetailFragment.newInstance(movie.title)
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, detailFragment)
+                    .addToBackStack("Add")
+                    .commit()
+            }
+        )
     }
 }
