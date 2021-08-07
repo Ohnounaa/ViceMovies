@@ -6,4 +6,5 @@
     <string name="now_playing">Now Playing</string>
     <string name="most_popular">Most Popular</string>
     <string name="favorites">FAVORITES</string>
+    <string name="remove_from_favorites">Remove from Favorites</string>
 </resources>

@@ -15,10 +15,6 @@ import com.example.vicemovies.Models.Movie
 import com.example.vicemovies.databinding.FragmentHomeBinding
 import com.example.vicemovies.databinding.MovieViewHolderBinding
 
-
-
-
-
 class HomePageFragment: Fragment() {
 
     private val imageUrlStem = "https://image.tmdb.org/t/p/w500/"
@@ -70,8 +66,6 @@ class HomePageFragment: Fragment() {
 
     inner class MovieViewHolder(private val binding: MovieViewHolderBinding) : RecyclerView.ViewHolder(binding.root) {
       //  init { binding.movieViewModel = movieViewModel }
-
-        var isButtonClicked = false
         fun bind(movie: Movie) {
             binding.apply {
             movieViewModel.movieImageUrl?.value = imageUrlStem + movie.poster_path
@@ -81,23 +75,14 @@ class HomePageFragment: Fragment() {
                     )
                 } }
                 movieImage.setOnClickListener{ movieViewModel.selectMovie(movie) }
-
-//                favoriteButton.setOnClickListener { v ->
-//                        isButtonClicked = !isButtonClicked // toggle the boolean flag
-//                        v.setBackgroundResource(if (isButtonClicked) com.example.vicemovies.R.drawable.ic_baseline_favorite_24
-//                        else com.example.vicemovies.R.drawable.ic_baseline_favorite_border_24)
-//
-//                }
-
-                favoriteButton.setOnClickListener{ v ->
+                favoriteButton.setOnClickListener{
                     if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)){
                         favoriteMoviesViewModel.addFavoriteMovie(movie)
                         favoriteButton.setBackgroundResource(com.example.vicemovies.R.drawable.ic_baseline_favorite_24)
                     } else {
                         favoriteMoviesViewModel.removeFavoriteMovie(movie)
-                       favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
+                        favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
                     }
-
                 }
                 executePendingBindings()
             }
@@ -105,6 +90,7 @@ class HomePageFragment: Fragment() {
     }
 
     inner class MovieAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MovieViewHolder>() {
+
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
                 val binding = DataBindingUtil.inflate<MovieViewHolderBinding>(
                     layoutInflater, R.layout.movie_view_holder, parent, false
