@@ -1,6 +1,5 @@
 package com.example.vicemovies
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
@@ -10,21 +9,43 @@ import com.example.vicemovies.Models.Movie
 import com.squareup.picasso.Picasso
 
 class MovieViewModel: ViewModel() {
-    var title: MutableLiveData<String>? = MutableLiveData()
-    var overview: MutableLiveData<String>? = MutableLiveData()
-    var release_date: MutableLiveData<String> = MutableLiveData()
-    var genre_ids: MutableLiveData<List<Int>> = MutableLiveData()
-    var movieImageUrl: MutableLiveData<String>? = MutableLiveData()
+    private val mutableTitleLiveData = MutableLiveData<String>()
+    private val mutableOverviewLiveData = MutableLiveData<String>()
+    private val mutableReleaseDateLiveData = MutableLiveData<String>()
+    private val mutableGenre_idsLiveData = MutableLiveData<List<Int>>()
+    private val mutableMovieImageUrlLiveData = MutableLiveData<String>()
+    private val mutableMovieRatingLiveData = MutableLiveData<String>()
+    private val mutableSelectedItemLiveData = MutableLiveData<Movie>()
 
-
-    private val mutableFavoriteItem = MutableLiveData<Movie>()
-    val favoriteMovie: LiveData<Movie> get() = mutableFavoriteItem
-    private val mutableSelectedItem = MutableLiveData<Movie>()
-    val selectedMovie: LiveData<Movie> get() = mutableSelectedItem
-
+    val selectedMovie: LiveData<Movie> get() = mutableSelectedItemLiveData
+    val title: LiveData<String> get() = mutableTitleLiveData
+    val url: LiveData<String> get() = mutableMovieImageUrlLiveData
+    val overview: LiveData<String> get() = mutableOverviewLiveData
+    val rating: LiveData<String> get() = mutableMovieRatingLiveData
+    val releaseDate: LiveData<String> get() = mutableReleaseDateLiveData
 
     fun selectMovie(movie: Movie) {
-        mutableSelectedItem.value = movie
+        mutableSelectedItemLiveData.value = movie
+    }
+
+    fun setTitle(name:String) {
+        mutableTitleLiveData.value = name
+    }
+
+    fun setOverview(overview:String) {
+        mutableOverviewLiveData.value = overview
+    }
+
+    fun setReleaseDate(date:String) {
+        mutableReleaseDateLiveData.value = date
+    }
+
+    fun setMovieImageUrl(url:String) {
+        mutableMovieImageUrlLiveData.value = url
+    }
+
+    fun setRating(rating:Double) {
+        mutableMovieRatingLiveData.value = "$rating/10"
     }
 
 }

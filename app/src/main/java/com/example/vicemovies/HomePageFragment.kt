@@ -45,7 +45,9 @@ class HomePageFragment: Fragment() {
         homeViewModel.currentMovies?.observe(
             viewLifecycleOwner, { movies ->
                 binding.nowPlayingMovieCollection.apply {
-                    layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                    layoutManager = LinearLayoutManager(context,
+                        RecyclerView.HORIZONTAL,
+                        false)
                     adapter = MovieAdapter(movies)
                 }
             }
@@ -58,6 +60,7 @@ class HomePageFragment: Fragment() {
                 }
             }
         )
+
         binding.favoritesTab.setOnClickListener{
             homeViewModel.selectFavoritesTab()
         }
@@ -68,12 +71,8 @@ class HomePageFragment: Fragment() {
       //  init { binding.movieViewModel = movieViewModel }
         fun bind(movie: Movie) {
             binding.apply {
-            movieViewModel.movieImageUrl?.value = imageUrlStem + movie.poster_path
-                movieViewModel.movieImageUrl?.let { it.value?.let { it1 ->
-                    loadImage(movieImage,
-                        it1
-                    )
-                } }
+            movieViewModel.setMovieImageUrl(imageUrlStem + movie.poster_path)
+            loadImage(movieImage, movieViewModel.url.value?:"")
                 movieImage.setOnClickListener{ movieViewModel.selectMovie(movie) }
                 favoriteButton.setOnClickListener{
                     if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)){

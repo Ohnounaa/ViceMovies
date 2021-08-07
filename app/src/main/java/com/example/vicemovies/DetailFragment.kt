@@ -12,8 +12,10 @@ import com.example.vicemovies.databinding.FragmentDetailBinding
 class DetailFragment: Fragment() {
 
     private val imageUrlStem = "https://image.tmdb.org/t/p/w500/"
-    private lateinit var homeViewModel: HomePageViewModel
     lateinit var fragmentLayout: View
+    private val movieViewModel:MovieViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,25 +29,23 @@ class DetailFragment: Fragment() {
             false
         )
         fragmentLayout = binding.root
-        val mMovieTitle = arguments?.getString("Title") as String
-        val mPosterPath = arguments?.getString("Poster_Path") as String
-        val mOverview = arguments?.getString("Overview") as String
-        val mReleaseDate = arguments?.getString("Release_Date") as String
+        val movieTitle = arguments?.getString("Title") as String
+        val posterPath = arguments?.getString("Poster_Path") as String
+        val overview = arguments?.getString("Overview") as String
+        val releaseDate = arguments?.getString("Release_Date") as String
         val voteAverage = arguments?.getDouble("Vote_Average") as Double
 
-   //     binding.movieViewModel = movieViewModel
+      binding.movieViewModel = movieViewModel
         binding.apply {
-            movieTitle.text = mMovieTitle
-            loadImage(movieImage, imageUrlStem + mPosterPath)
-            movieOverview.text =  mOverview
-            releaseDate.text = mReleaseDate
-            rating.text = "$voteAverage/10"
+            movieViewModel?.setTitle(movieTitle)
+            movieViewModel?.setOverview(overview)
+            movieViewModel?.setReleaseDate(releaseDate)
+            movieViewModel?.setRating(voteAverage)
+            loadImage(movieImage, imageUrlStem + posterPath)
         }
 
         return fragmentLayout
     }
-
-
 
     companion object {
         fun newInstance(
