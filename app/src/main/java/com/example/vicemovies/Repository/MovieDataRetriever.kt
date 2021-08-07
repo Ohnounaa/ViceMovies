@@ -1,13 +1,10 @@
 package com.example.vicemovies.Repository
 
-import Genres
+
 import com.example.vicemovies.Repository.MovieAPI
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.example.vicemovies.Models.Configuration
-import com.example.vicemovies.Models.Images
-import com.example.vicemovies.Models.Movie
-import com.example.vicemovies.Models.Movies
+import com.example.vicemovies.Models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

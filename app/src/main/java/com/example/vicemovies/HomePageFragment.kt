@@ -16,11 +16,12 @@ import com.example.vicemovies.databinding.MovieViewHolderBinding
 class HomePageFragment: Fragment() {
 
     private val imageUrlStem = "https://image.tmdb.org/t/p/w500/"
-    private lateinit var homeViewModel: HomePageViewModel
     lateinit var fragmentLayout: View
-
     private val movieViewModel:MovieViewModel by lazy {
         ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+    }
+    private val homeViewModel:HomePageViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(HomePageViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -35,8 +36,6 @@ class HomePageFragment: Fragment() {
             false
         )
         fragmentLayout = binding.root
-
-        homeViewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
         homeViewModel.currentMovies?.observe(
             viewLifecycleOwner, { movies ->
                 binding.nowPlayingMovieCollection.apply {
@@ -53,6 +52,9 @@ class HomePageFragment: Fragment() {
                 }
             }
         )
+        binding.favoritesTab.setOnClickListener{
+            homeViewModel.selectFavoritesTab()
+        }
         return fragmentLayout
     }
 

@@ -5,4 +5,5 @@
     <string name="title_favorites">Favorites</string>
     <string name="now_playing">Now Playing</string>
     <string name="most_popular">Most Popular</string>
+    <string name="favorites">FAVORITES</string>
 </resources>

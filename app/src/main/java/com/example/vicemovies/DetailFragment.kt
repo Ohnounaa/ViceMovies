@@ -15,10 +15,6 @@ class DetailFragment: Fragment() {
     private lateinit var homeViewModel: HomePageViewModel
     lateinit var fragmentLayout: View
 
-
-    private val movieViewModel:MovieViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

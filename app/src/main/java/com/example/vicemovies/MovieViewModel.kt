@@ -16,18 +16,25 @@ class MovieViewModel: ViewModel() {
     var genre_ids: MutableLiveData<List<Int>> = MutableLiveData()
     var movieImageUrl: MutableLiveData<String>? = MutableLiveData()
 
+    private val mutableFavoritedItem = MutableLiveData<Movie>()
     private val mutableSelectedItem = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> get() = mutableSelectedItem
 
+
     fun selectMovie(movie: Movie) {
-        Log.d("ALIZA", "OHNOUNA")
         mutableSelectedItem.value = movie
     }
+
+    fun favorite(movie:Movie) {
+        mutableFavoritedItem.value = movie
+    }
+
+
 }
 
 @BindingAdapter("android:src")
 fun loadImage(iv: ImageView, url: String) {
     Picasso
-        .with(iv.context).load(url).resize(850,1000).into(iv)
+        .with(iv.context).load(url).resize(800,950).into(iv)
 }
 

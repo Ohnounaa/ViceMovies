@@ -1,7 +1,7 @@
 package com.example.vicemovies.Repository
 
-import Genres
 import com.example.vicemovies.Models.Configuration
+import com.example.vicemovies.Models.Genres
 import com.example.vicemovies.Models.Movies
 import retrofit2.Call
 import retrofit2.http.GET

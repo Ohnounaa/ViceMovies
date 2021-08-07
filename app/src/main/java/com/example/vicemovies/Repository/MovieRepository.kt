@@ -1,10 +1,9 @@
 package com.example.vicemovies.Repository
 
-import Genre
-import Genres
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.example.vicemovies.Models.Configuration
+import com.example.vicemovies.Models.Genres
 import com.example.vicemovies.Models.Movie
 
 class MovieRepository private constructor(context: Context){
