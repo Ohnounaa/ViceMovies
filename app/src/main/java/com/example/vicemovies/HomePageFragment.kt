@@ -52,11 +52,6 @@ class HomePageFragment: Fragment() {
         return fragmentLayout
     }
 
-    fun onClicked(movie:Movie) {
-
-    }
-
-
     inner class MovieViewHolder(private val binding: MovieViewHolderBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.movieViewModel = MovieViewModel()
@@ -69,13 +64,9 @@ class HomePageFragment: Fragment() {
                 executePendingBindings()
             }
         }
-
-        fun onClicked(movie:Movie) {
-
-        }
     }
 
-    inner class MovieAdapter(private val movies: List<Movie>?) : RecyclerView.Adapter<MovieViewHolder>() {
+    inner class MovieAdapter(private val movies: List<Movie>) : RecyclerView.Adapter<MovieViewHolder>() {
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
                 val binding = DataBindingUtil.inflate<MovieViewHolderBinding>(
                     layoutInflater, R.layout.movie_view_holder, parent, false
@@ -84,11 +75,11 @@ class HomePageFragment: Fragment() {
             }
 
             override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-                movies?.get(position)?.let { holder.bind(it) }
+                holder.bind(movies[position])
             }
 
             override fun getItemCount(): Int {
-                return movies?.size ?: 0
+                return movies.size
             }
         }
     }
