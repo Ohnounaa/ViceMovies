@@ -1,5 +1,6 @@
 package com.example.vicemovies.Repository
 
+import Genres
 import com.example.vicemovies.Repository.MovieAPI
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -104,5 +105,28 @@ class MovieDataRetriever {
             }
         })
         return configurationData
+    }
+    fun retrieveGenreIdsAndNames() : MutableLiveData<Genres> {
+        val genresMap:   MutableLiveData<Genres> = MutableLiveData()
+        val retrofit: Retrofit = Retrofit.Builder().
+        baseUrl(baseUrl).
+        addConverterFactory(GsonConverterFactory.create()).build()
+        val api: MovieAPI = retrofit.create(MovieAPI::class.java)
+        val retriever = api.getGenreIdsToNamesMap()
+        retriever.enqueue(object: Callback<Genres> {
+            override fun onResponse(
+                call: Call<Genres>,
+                response: Response<Genres>
+            ) {
+                response.isSuccessful.let {
+                    response.body()?.genres?.let { genres -> Genres(genres) }
+                }
+                genresMap.value = response.body()
+            }
+            override fun onFailure(call: Call<Genres>, t: Throwable) {
+                Log.d("OHNOUNA", t.message.toString())
+            }
+        })
+        return genresMap
     }
 }

@@ -1,5 +1,7 @@
 package com.example.vicemovies.Repository
 
+import Genre
+import Genres
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.example.vicemovies.Models.Configuration
@@ -18,6 +20,10 @@ class MovieRepository private constructor(context: Context){
    suspend fun getConfigurationDataFromAPI() : MutableLiveData<Configuration> {
        return MovieDataRetriever().retrieveConfigurationData()
    }
+    suspend fun getGenreMap() : MutableLiveData<Genres> {
+        return MovieDataRetriever().retrieveGenreIdsAndNames()
+
+    }
 
    // private val database: MovieDatabase? = MovieDatabase.getInstance(context.applicationContext)
 

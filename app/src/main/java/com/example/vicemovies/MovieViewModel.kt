@@ -14,15 +14,7 @@ class MovieViewModel: ViewModel() {
     var overview: MutableLiveData<String>? = MutableLiveData()
     var release_date: MutableLiveData<String> = MutableLiveData()
     var genre_ids: MutableLiveData<List<Int>> = MutableLiveData()
-
     var movieImageUrl: MutableLiveData<String>? = MutableLiveData()
-
-    var film: Movie? = null
-    set(film) {
-        field = film
-        title?.postValue(film?.title)
-        movieImageUrl?.postValue(film?.poster_path)
-    }
 
     private val mutableSelectedItem = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> get() = mutableSelectedItem
