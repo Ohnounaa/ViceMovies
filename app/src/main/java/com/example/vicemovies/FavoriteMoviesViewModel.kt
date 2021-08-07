@@ -10,10 +10,8 @@ class FavoriteMoviesViewModel: ViewModel() {
     var favoriteMoviesLiveData : MutableLiveData<List<Movie>>? = MutableLiveData()
 
     fun addFavoriteMovie(favoriteMovie: Movie) {
-        if(!favoriteMovies.contains(favoriteMovie)) {
             favoriteMovies.add(favoriteMovie)
             favoriteMoviesLiveData?.value = favoriteMovies
-        }
     }
 
     fun removeFavoriteMovie(movieToRemove: Movie) {

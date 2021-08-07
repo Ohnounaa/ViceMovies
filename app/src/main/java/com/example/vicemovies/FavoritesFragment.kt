@@ -40,7 +40,7 @@ class FavoritesFragment: Fragment() {
 
         favoriteMoviesViewModel.favoriteMoviesLiveData?.observe(
             viewLifecycleOwner, {movies ->
-                    Log.d("OHNOUNA", movies.first().title)
+
             }
         )
 

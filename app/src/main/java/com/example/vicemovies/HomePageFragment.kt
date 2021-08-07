@@ -1,9 +1,11 @@
 package com.example.vicemovies
 
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vicemovies.Models.Movie
 import com.example.vicemovies.databinding.FragmentHomeBinding
 import com.example.vicemovies.databinding.MovieViewHolderBinding
+
+
+
+
 
 class HomePageFragment: Fragment() {
 
@@ -65,13 +71,9 @@ class HomePageFragment: Fragment() {
     inner class MovieViewHolder(private val binding: MovieViewHolderBinding) : RecyclerView.ViewHolder(binding.root) {
       //  init { binding.movieViewModel = movieViewModel }
 
+        var isButtonClicked = false
         fun bind(movie: Movie) {
-          // setMovieViewModel(movie)
             binding.apply {
-
-               // movieViewModel?.title?.value = movie.title
-              //  movieViewModel?.movieImageUrl?.value = imageUrlStem + movie.poster_path
-              //  movieViewModel?.movieImageUrl?.value?.let { loadImage(movieImage, it) }
             movieViewModel.movieImageUrl?.value = imageUrlStem + movie.poster_path
                 movieViewModel.movieImageUrl?.let { it.value?.let { it1 ->
                     loadImage(movieImage,
@@ -79,11 +81,26 @@ class HomePageFragment: Fragment() {
                     )
                 } }
                 movieImage.setOnClickListener{ movieViewModel.selectMovie(movie) }
-                favoriteButton.setOnClickListener{favoriteMoviesViewModel.addFavoriteMovie(movie)}
+
+//                favoriteButton.setOnClickListener { v ->
+//                        isButtonClicked = !isButtonClicked // toggle the boolean flag
+//                        v.setBackgroundResource(if (isButtonClicked) com.example.vicemovies.R.drawable.ic_baseline_favorite_24
+//                        else com.example.vicemovies.R.drawable.ic_baseline_favorite_border_24)
+//
+//                }
+
+                favoriteButton.setOnClickListener{ v ->
+                    if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)){
+                        favoriteMoviesViewModel.addFavoriteMovie(movie)
+                        favoriteButton.setBackgroundResource(com.example.vicemovies.R.drawable.ic_baseline_favorite_24)
+                    } else {
+                        favoriteMoviesViewModel.removeFavoriteMovie(movie)
+                       favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
+                    }
+
+                }
                 executePendingBindings()
             }
-
-
         }
     }
 
