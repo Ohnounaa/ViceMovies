@@ -18,6 +18,7 @@ class MovieViewModel: ViewModel() {
 
 
     private val mutableFavoriteItem = MutableLiveData<Movie>()
+    val favoriteMovie: LiveData<Movie> get() = mutableFavoriteItem
     private val mutableSelectedItem = MutableLiveData<Movie>()
     val selectedMovie: LiveData<Movie> get() = mutableSelectedItem
 
@@ -25,11 +26,6 @@ class MovieViewModel: ViewModel() {
     fun selectMovie(movie: Movie) {
         mutableSelectedItem.value = movie
     }
-
-    fun favorite(movie:Movie) {
-        mutableFavoriteItem.value = movie
-    }
-
 
 }
 

@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.vicemovies.databinding.FragmentFavoritesBinding
-import com.example.vicemovies.databinding.FragmentHomeBinding
 
 
 class FavoritesFragment: Fragment() {
@@ -37,19 +34,15 @@ class FavoritesFragment: Fragment() {
         )
         fragmentLayout = binding.root
 
-        homePageViewModel.currentMovies?.observe(
-            viewLifecycleOwner, {movies -> Log.d("OHNOUNA", movies.first().title)}
+        val favoriteMoviesViewModel: FavoriteMoviesViewModel by lazy {
+            ViewModelProvider(this).get(FavoriteMoviesViewModel::class.java)
+        }
+
+        favoriteMoviesViewModel.favoriteMoviesLiveData?.observe(
+            viewLifecycleOwner, {movies ->
+                    Log.d("OHNOUNA", movies.first().title)
+            }
         )
-
-
-//        homeViewModel.currentMovies?.observe(
-//            viewLifecycleOwner, { movies ->
-//                binding.nowPlayingMovieCollection.apply {
-//                    layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-//                    adapter = MovieAdapter(movies)
-//                }
-//            }
-//        )
 
         return fragmentLayout
     }

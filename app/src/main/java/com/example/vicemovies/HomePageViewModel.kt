@@ -18,17 +18,13 @@ class HomePageViewModel: ViewModel() {
     private val isFavoritesTabSelected = MutableLiveData<Boolean>()
     val favoritesTab: LiveData<Boolean> get() = isFavoritesTabSelected
 
-
-
     init {
         getConfigurationData()
         getNowPlayingMovies("1")
         getPopularMovies("1")
     }
 
-    fun selectFavoritesTab() {
-        isFavoritesTabSelected.value = true
-    }
+    fun selectFavoritesTab() { isFavoritesTabSelected.value = true }
 
     private fun getPopularMovies(pageNumber: String) {
         viewModelScope.launch {

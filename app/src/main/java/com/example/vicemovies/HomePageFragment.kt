@@ -24,6 +24,10 @@ class HomePageFragment: Fragment() {
         ViewModelProvider(requireActivity()).get(HomePageViewModel::class.java)
     }
 
+    private val favoriteMoviesViewModel: FavoriteMoviesViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(FavoriteMoviesViewModel::class.java)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,8 +78,8 @@ class HomePageFragment: Fragment() {
                         it1
                     )
                 } }
-                movieImage.setOnClickListener{ movieViewModel?.selectMovie(movie) }
-                favoriteButton.setOnClickListener{movieViewModel.favorite(movie)}
+                movieImage.setOnClickListener{ movieViewModel.selectMovie(movie) }
+                favoriteButton.setOnClickListener{favoriteMoviesViewModel.addFavoriteMovie(movie)}
                 executePendingBindings()
             }
 
