@@ -75,6 +75,7 @@ class HomePageFragment: Fragment() {
                     )
                 } }
                 movieImage.setOnClickListener{ movieViewModel?.selectMovie(movie) }
+                favoriteButton.setOnClickListener{movieViewModel.favorite(movie)}
                 executePendingBindings()
             }
 

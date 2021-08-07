@@ -37,10 +37,6 @@ class HomePageViewModel: ViewModel() {
         }
     }
 
-    private fun favoritesTabSelected() {
-        isFavoritesTabSelected.value = true
-    }
-
     private fun getConfigurationData() {
         viewModelScope.launch{
             val configDataFromAPI = repository.getConfigurationDataFromAPI()
