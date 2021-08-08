@@ -47,7 +47,6 @@ class MovieViewModel: ViewModel() {
     fun setRating(rating:Double) {
         mutableMovieRatingLiveData.value = "$rating/10"
     }
-
 }
 
 @BindingAdapter("android:src")

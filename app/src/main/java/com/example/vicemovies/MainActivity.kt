@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         homePageViewModel.favoritesTab.observe(
-            this, Observer { movie ->
+            this, Observer {
                 val favoritesFragment =
                     FavoritesFragment.newInstance()
                 supportFragmentManager
