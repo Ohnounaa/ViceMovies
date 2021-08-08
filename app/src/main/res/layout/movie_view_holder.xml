@@ -16,6 +16,7 @@
             <ImageButton
                 android:padding="2dp"
                 android:id="@+id/movie_image"
+                android:background="@drawable/image_border"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@id/movie_card"
