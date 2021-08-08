@@ -72,6 +72,9 @@ class HomePageFragment: Fragment() {
             binding.apply {
             movieViewModel.setMovieImageUrl(imageUrlStem + movie.poster_path)
             loadImage(movieImage, movieViewModel.url.value?:"")
+                if(favoriteMoviesViewModel.favoriteMovies.contains(movie)) {
+                    favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+                }
                 movieImage.setOnClickListener{ movieViewModel.selectMovie(movie) }
                 favoriteButton.setOnClickListener{
                     if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)){

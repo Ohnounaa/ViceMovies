@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.vicemovies.Models.Movie
 import com.example.vicemovies.databinding.FragmentDetailBinding
@@ -18,9 +19,6 @@ class DetailFragment: Fragment() {
     private val movieViewModel:MovieViewModel by lazy {
         ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
     }
-    private val homeViewModel:HomePageViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(HomePageViewModel::class.java)
-    }
     private val favoriteMoviesViewModel: FavoriteMoviesViewModel by lazy {
         ViewModelProvider(requireActivity()).get(FavoriteMoviesViewModel::class.java)
     }
@@ -29,7 +27,7 @@ class DetailFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: FragmentDetailBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_detail,
@@ -37,32 +35,21 @@ class DetailFragment: Fragment() {
             false
         )
         fragmentLayout = binding.root
-
-
-        movieViewModel.selectedMovie.observe( viewLifecycleOwner, { movie ->
-            createDetailView(movie, binding)
-        } )
-
+        movieViewModel.selectedMovie.observe( viewLifecycleOwner, { movie -> createDetailView(movie, binding) } )
         return fragmentLayout
     }
 
     private fun createDetailView(movie: Movie, binding: FragmentDetailBinding) {
         binding.movieViewModel = movieViewModel
-
         binding.apply {
             movieViewModel?.setTitle(movie.title)
             movieViewModel?.setOverview(movie.overview)
             movieViewModel?.setReleaseDate(movie.release_date)
             movieViewModel?.setRating(movie.vote_average)
-//         movieTitle.text = movieViewModel.title.value
-//         movieOverview.text = movieViewModel.overview.value
-//         rating.text = movieViewModel.rating.value
-//         releaseDate.text = movieViewModel .releaseDate.value
             loadImage(movieImage, imageUrlStem + movie.poster_path)
-
-
-
-           // loadImage(movieImage, imageUrlStem + movie.poster_path)
+            if(favoriteMoviesViewModel.favoriteMovies.contains(movie)) {
+                favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+            }
             favoriteButton.setOnClickListener {
                 if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)) {
                     favoriteMoviesViewModel.addFavoriteMovie(movie)
@@ -71,13 +58,8 @@ class DetailFragment: Fragment() {
                     favoriteMoviesViewModel.removeFavoriteMovie(movie)
                     favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
                 }
-
             }
         }
-    }
-
-    fun report(movies: Movie, binding: FragmentDetailBinding) {
-        Log.d("ALIZA", movies.title)
     }
 
     companion object {
