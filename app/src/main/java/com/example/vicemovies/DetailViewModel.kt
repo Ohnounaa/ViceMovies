@@ -5,14 +5,15 @@ import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.vicemovies.Models.Genre
 import com.example.vicemovies.Models.Movie
 import com.squareup.picasso.Picasso
 
-class MovieViewModel: ViewModel() {
+class DetailViewModel: ViewModel() {
+    private var mutableGenreLiveData: MutableLiveData<String> = MutableLiveData()
     private val mutableTitleLiveData = MutableLiveData<String>()
     private val mutableOverviewLiveData = MutableLiveData<String>()
     private val mutableReleaseDateLiveData = MutableLiveData<String>()
-    private val mutableGenre_idsLiveData = MutableLiveData<List<Int>>()
     private val mutableMovieImageUrlLiveData = MutableLiveData<String>()
     private val mutableMovieRatingLiveData = MutableLiveData<String>()
     private val mutableSelectedItemLiveData = MutableLiveData<Movie>()
@@ -23,6 +24,15 @@ class MovieViewModel: ViewModel() {
     val overview: LiveData<String> get() = mutableOverviewLiveData
     val rating: LiveData<String> get() = mutableMovieRatingLiveData
     val releaseDate: LiveData<String> get() = mutableReleaseDateLiveData
+    val genres: LiveData<String> get() = mutableGenreLiveData
+
+    fun setGenres(ids: List<Int>, genresList: MutableList<Genre>?) {
+           val genreNameList= mutableListOf<String>()
+           genresList?.forEach { if (ids.contains(it.id)) {
+                genreNameList.add(it.name)
+            } }
+            mutableGenreLiveData.value = "Genres: " + genreNameList.joinToString()
+    }
 
     fun selectMovie(movie: Movie) {
         mutableSelectedItemLiveData.value = movie

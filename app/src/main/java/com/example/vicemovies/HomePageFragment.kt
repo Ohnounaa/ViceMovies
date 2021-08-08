@@ -1,11 +1,9 @@
 package com.example.vicemovies
 
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,8 +17,8 @@ class HomePageFragment: Fragment() {
 
     private val imageUrlStem = "https://image.tmdb.org/t/p/w500/"
     lateinit var fragmentLayout: View
-    private val movieViewModel:MovieViewModel by lazy {
-        ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+    private val detailViewModel:DetailViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(DetailViewModel::class.java)
     }
     private val homeViewModel:HomePageViewModel by lazy {
         ViewModelProvider(requireActivity()).get(HomePageViewModel::class.java)
@@ -69,9 +67,9 @@ class HomePageFragment: Fragment() {
     inner class MovieViewHolder(private val binding: MovieViewHolderBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.apply {
-            movieViewModel.setMovieImageUrl(imageUrlStem + movie.poster_path)
-            loadImage(movieImage, movieViewModel.url.value?:"")
-                movieImage.setOnClickListener{ movieViewModel.selectMovie(movie) }
+            detailViewModel.setMovieImageUrl(imageUrlStem + movie.poster_path)
+            loadImage(movieImage, detailViewModel.url.value?:"")
+                movieImage.setOnClickListener{ detailViewModel.selectMovie(movie) }
                 favoriteButton.setOnClickListener{
                     if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)){
                         favoriteMoviesViewModel.addFavoriteMovie(movie)

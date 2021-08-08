@@ -2,9 +2,7 @@ package com.example.vicemovies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : AppCompatActivity() {
@@ -20,8 +18,8 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider(this).get(HomePageViewModel::class.java)
         }
 
-        val movieViewModel: MovieViewModel by lazy {
-            ViewModelProvider(this).get(MovieViewModel::class.java)
+        val detailViewModel: DetailViewModel by lazy {
+            ViewModelProvider(this).get(DetailViewModel::class.java)
         }
 
         homePageViewModel.favoritesTab.observe(
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity() {
             }
         )
 
-        movieViewModel.selectedMovie.observe(
+        detailViewModel.selectedMovie.observe(
             this, Observer {
                 val detailFragment =
             DetailFragment.newInstance()

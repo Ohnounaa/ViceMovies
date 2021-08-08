@@ -29,7 +29,9 @@ class MovieRepository private constructor(context: Context){
 
   private val movieDao = database?.movieDao()
 
-  suspend fun addFavoriteMoviesToDB(movie:Movie) = movieDao?.addMovie(movie)
+  suspend fun addFavoriteMovieToDB(movie:Movie) = movieDao?.addMovie(movie)
+
+  suspend fun removeFavoriteMovieFromDB(movie: Movie) = movieDao?.removeMovie(movie)
 
   suspend fun getFavoriteMovies(): LiveData<List<Movie>>? = movieDao?.fetchMovieData()
 

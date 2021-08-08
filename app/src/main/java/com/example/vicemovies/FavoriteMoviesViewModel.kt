@@ -1,6 +1,5 @@
 package com.example.vicemovies
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,19 +15,26 @@ class FavoriteMoviesViewModel: ViewModel() {
     fun addFavoriteMovie(favoriteMovie: Movie) {
             favoriteMovies.add(favoriteMovie)
             favoriteMoviesLiveData?.value = favoriteMovies
-            updateFavoriteMoviesInDB(favoriteMovie)
+            updateFavoriteMovieInDB(favoriteMovie)
     }
 
     fun removeFavoriteMovie(movieToRemove: Movie) {
         if(favoriteMovies.contains(movieToRemove)) {
             favoriteMovies.remove(movieToRemove)
             favoriteMoviesLiveData?.value = favoriteMovies
+            removeFavoriteMovie(movieToRemove)
         }
     }
 
-    private fun updateFavoriteMoviesInDB(movie: Movie) {
+    private fun updateFavoriteMovieInDB(movie: Movie) {
         viewModelScope.launch {
-            repository.addFavoriteMoviesToDB(movie)
+            repository.addFavoriteMovieToDB(movie)
+        }
+    }
+
+    private fun removeFavoriteMovieInDb(movie:Movie) {
+        viewModelScope.launch {
+            repository.removeFavoriteMovieFromDB(movie)
         }
     }
 }

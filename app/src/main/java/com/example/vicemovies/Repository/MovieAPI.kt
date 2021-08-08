@@ -18,7 +18,7 @@ interface MovieAPI {
     @GET("configuration?api_key=51c73e162cf5c4b1265e9d3e4b8f0128")
      fun retrieveConfiguration(): Call<Configuration>
 
-     @GET("/genre/movie/list?api_key=51c73e162cf5c4b1265e9d3e4b8f0128&language=en-US")
+     @GET("genre/movie/list?api_key=51c73e162cf5c4b1265e9d3e4b8f0128&language=en-US")
      fun getGenreIdsToNamesMap() : Call<Genres>
 
 }

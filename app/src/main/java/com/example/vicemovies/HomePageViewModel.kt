@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vicemovies.Models.Configuration
+import com.example.vicemovies.Models.Genre
+import com.example.vicemovies.Models.Genres
 import com.example.vicemovies.Models.Movie
 import com.example.vicemovies.Repository.MovieRepository
 import kotlinx.coroutines.launch
@@ -15,6 +17,7 @@ class HomePageViewModel: ViewModel() {
     var currentMovies : MutableLiveData<List<Movie>>? = null
     var popularMovies: MutableLiveData<List<Movie>>? = null
     var configurationData: MutableLiveData<Configuration>? = null
+    var genreMap:  MutableLiveData<Genres>? = null
     private val isFavoritesTabSelected = MutableLiveData<Boolean>()
     val favoritesTab: LiveData<Boolean> get() = isFavoritesTabSelected
 
@@ -22,6 +25,7 @@ class HomePageViewModel: ViewModel() {
         getConfigurationData()
         getNowPlayingMovies("1")
         getPopularMovies("1")
+        getGenres()
     }
 
     fun selectFavoritesTab() { isFavoritesTabSelected.value = true }
@@ -40,13 +44,17 @@ class HomePageViewModel: ViewModel() {
         }
     }
 
+    private fun getGenres() {
+        viewModelScope.launch {
+            val genresFromAPI = repository.getGenreMap()
+            genreMap = genresFromAPI
+        }
+    }
+
     private fun getNowPlayingMovies(pageNumber: String)  {
         viewModelScope.launch {
             val currentMoviesAPIData = repository.getNowPlayingMoviesFromAPI(pageNumber)
             currentMovies = currentMoviesAPIData
-
         }
     }
-
-
 }
