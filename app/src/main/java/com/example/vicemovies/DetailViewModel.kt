@@ -62,6 +62,6 @@ class DetailViewModel: ViewModel() {
 @BindingAdapter("android:src")
 fun loadImage(iv: ImageView, url: String) {
     Picasso
-        .with(iv.context).load(url).resize(750,900).into(iv)
+        .with(iv.context).load(url).resize(600,800).into(iv)
 }
 
