@@ -7,11 +7,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.vicemovies.Models.Movie
 
-@Database(entities = [Movie:: class], version = 1, exportSchema = false)
-//class MovieDatabase {
+@Database(entities = [Movie:: class],
+    version = 1,
+    exportSchema = false)
+
     abstract class MovieDatabase: RoomDatabase() {
-        //abstract val movieDAO: MovieDAO
+       abstract fun movieDao() : MovieDAO
         companion object {
+            //we want database to be a singleton
             @Volatile
             private var INSTANCE: MovieDatabase? = null
             fun getInstance(context: Context): MovieDatabase? {
@@ -20,7 +23,8 @@ import com.example.vicemovies.Models.Movie
                     if(instance == null) {
                         instance = Room.databaseBuilder(context.applicationContext,
                             MovieDatabase::class.java,
-                            "movie_database").fallbackToDestructiveMigration().build()
+                            "movie_database")
+                            .fallbackToDestructiveMigration().build()
                         INSTANCE = instance
                     }
                     return instance
@@ -28,4 +32,4 @@ import com.example.vicemovies.Models.Movie
             }
         }
     }
-//}
+

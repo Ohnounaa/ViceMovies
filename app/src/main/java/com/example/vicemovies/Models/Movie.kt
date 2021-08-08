@@ -3,7 +3,7 @@ package com.example.vicemovies.Models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName="movie_table")
 data class Movie(
     val adult: Boolean,
     val backdrop_path: String,
