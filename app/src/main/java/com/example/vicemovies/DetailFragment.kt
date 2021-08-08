@@ -48,12 +48,21 @@ class DetailFragment: Fragment() {
 
     private fun createDetailView(movie: Movie, binding: FragmentDetailBinding) {
         binding.movieViewModel = movieViewModel
+
         binding.apply {
             movieViewModel?.setTitle(movie.title)
             movieViewModel?.setOverview(movie.overview)
             movieViewModel?.setReleaseDate(movie.release_date)
             movieViewModel?.setRating(movie.vote_average)
+//         movieTitle.text = movieViewModel.title.value
+//         movieOverview.text = movieViewModel.overview.value
+//         rating.text = movieViewModel.rating.value
+//         releaseDate.text = movieViewModel .releaseDate.value
             loadImage(movieImage, imageUrlStem + movie.poster_path)
+
+
+
+           // loadImage(movieImage, imageUrlStem + movie.poster_path)
             favoriteButton.setOnClickListener {
                 if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)) {
                     favoriteMoviesViewModel.addFavoriteMovie(movie)
