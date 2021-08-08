@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MovieDataRetriever {
     private val baseUrl = "https://api.themoviedb.org/3/"
     fun retrieveMostPopularMoviesData(pageNumber:String) :  MutableLiveData<List<Movie>> {
-        var popularMovies: MutableLiveData<List<Movie>>  = MutableLiveData()
+        val popularMovies: MutableLiveData<List<Movie>>  = MutableLiveData()
         val retrofit: Retrofit = Retrofit.
         Builder().
         baseUrl(baseUrl).

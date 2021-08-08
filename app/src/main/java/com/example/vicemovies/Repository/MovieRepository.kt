@@ -1,6 +1,7 @@
 package com.example.vicemovies.Repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.vicemovies.Models.Configuration
 import com.example.vicemovies.Models.Genres
@@ -8,30 +9,29 @@ import com.example.vicemovies.Models.Movie
 
 class MovieRepository private constructor(context: Context){
 
-   suspend fun getNowPlayingMoviesFromAPI(pageNumber:String): MutableLiveData<List<Movie>> {
+   fun getNowPlayingMoviesFromAPI(pageNumber:String): MutableLiveData<List<Movie>> {
         return MovieDataRetriever().retrieveNowPlayingMoviesData(pageNumber);
     }
 
-    suspend fun getPopularMoviesFromAPI(pageNumber: String) : MutableLiveData<List<Movie>> {
+    fun getPopularMoviesFromAPI(pageNumber: String) : MutableLiveData<List<Movie>> {
         return MovieDataRetriever().retrieveMostPopularMoviesData(pageNumber)
     }
 
-   suspend fun getConfigurationDataFromAPI() : MutableLiveData<Configuration> {
+   fun getConfigurationDataFromAPI() : MutableLiveData<Configuration> {
        return MovieDataRetriever().retrieveConfigurationData()
    }
-    suspend fun getGenreMap() : MutableLiveData<Genres> {
+    fun getGenreMap() : MutableLiveData<Genres> {
         return MovieDataRetriever().retrieveGenreIdsAndNames()
 
     }
 
-   // private val database: MovieDatabase? = MovieDatabase.getInstance(context.applicationContext)
+  private val database: MovieDatabase? = MovieDatabase.getInstance(context.applicationContext)
 
- //   private val movieDao = database?.movieDAO
+  private val movieDao = database?.movieDao()
 
-//TODO REMOVE DOUBLE BANG
-  //  fun getNowPlayingMovies(): MutableState<List<Movie>> = movieDao!!.getMovies()
+  suspend fun addFavoriteMoviesToDB(movie:Movie) = movieDao?.addMovie(movie)
 
-  //  fun insertWeatherInfo(dwi:DailyWeatherInfo) = weatherDao.insertWeatherDay(dwi)
+  suspend fun getFavoriteMovies(): LiveData<List<Movie>>? = movieDao?.fetchMovieData()
 
 
     companion object{
