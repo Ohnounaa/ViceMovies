@@ -25,7 +25,6 @@ class HomePageFragment: Fragment() {
     private val homeViewModel:HomePageViewModel by lazy {
         ViewModelProvider(requireActivity()).get(HomePageViewModel::class.java)
     }
-
     private val favoriteMoviesViewModel: FavoriteMoviesViewModel by lazy {
         ViewModelProvider(requireActivity()).get(FavoriteMoviesViewModel::class.java)
     }

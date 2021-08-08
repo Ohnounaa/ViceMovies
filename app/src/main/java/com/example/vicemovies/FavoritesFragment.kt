@@ -21,6 +21,7 @@ class FavoritesFragment: Fragment() {
         ViewModelProvider(requireActivity()).get(FavoriteMoviesViewModel::class.java)
     }
 
+
     private val imageUrlStem = "https://image.tmdb.org/t/p/w500/"
     lateinit var fragmentLayout: View
 

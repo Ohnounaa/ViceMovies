@@ -37,13 +37,9 @@ class MainActivity : AppCompatActivity() {
         )
 
         movieViewModel.selectedMovie.observe(
-            this, Observer { movie ->
-                        val detailFragment =
-            DetailFragment.newInstance(movie.title,
-                movie.poster_path,
-                movie.overview,
-                movie.release_date,
-            movie.vote_average)
+            this, Observer {
+                val detailFragment =
+            DetailFragment.newInstance()
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fragment_container, detailFragment)

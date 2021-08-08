@@ -1,12 +1,14 @@
 package com.example.vicemovies
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.vicemovies.Models.Movie
 import com.example.vicemovies.databinding.FragmentDetailBinding
 
 class DetailFragment: Fragment() {
@@ -15,6 +17,12 @@ class DetailFragment: Fragment() {
     lateinit var fragmentLayout: View
     private val movieViewModel:MovieViewModel by lazy {
         ViewModelProvider(requireActivity()).get(MovieViewModel::class.java)
+    }
+    private val homeViewModel:HomePageViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(HomePageViewModel::class.java)
+    }
+    private val favoriteMoviesViewModel: FavoriteMoviesViewModel by lazy {
+        ViewModelProvider(requireActivity()).get(FavoriteMoviesViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -29,39 +37,44 @@ class DetailFragment: Fragment() {
             false
         )
         fragmentLayout = binding.root
-        val movieTitle = arguments?.getString("Title") as String
-        val posterPath = arguments?.getString("Poster_Path") as String
-        val overview = arguments?.getString("Overview") as String
-        val releaseDate = arguments?.getString("Release_Date") as String
-        val voteAverage = arguments?.getDouble("Vote_Average") as Double
 
-      binding.movieViewModel = movieViewModel
-        binding.apply {
-            movieViewModel?.setTitle(movieTitle)
-            movieViewModel?.setOverview(overview)
-            movieViewModel?.setReleaseDate(releaseDate)
-            movieViewModel?.setRating(voteAverage)
-            loadImage(movieImage, imageUrlStem + posterPath)
-        }
+
+        movieViewModel.selectedMovie.observe( viewLifecycleOwner, { movie ->
+            createDetailView(movie, binding)
+        } )
 
         return fragmentLayout
     }
 
+    private fun createDetailView(movie: Movie, binding: FragmentDetailBinding) {
+        binding.movieViewModel = movieViewModel
+        binding.apply {
+            movieViewModel?.setTitle(movie.title)
+            movieViewModel?.setOverview(movie.overview)
+            movieViewModel?.setReleaseDate(movie.release_date)
+            movieViewModel?.setRating(movie.vote_average)
+            loadImage(movieImage, imageUrlStem + movie.poster_path)
+            favoriteButton.setOnClickListener {
+                if(!favoriteMoviesViewModel.favoriteMovies.contains(movie)) {
+                    favoriteMoviesViewModel.addFavoriteMovie(movie)
+                    favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
+                } else {
+                    favoriteMoviesViewModel.removeFavoriteMovie(movie)
+                    favoriteButton.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
+                }
+
+            }
+        }
+    }
+
+    fun report(movies: Movie, binding: FragmentDetailBinding) {
+        Log.d("ALIZA", movies.title)
+    }
+
     companion object {
         fun newInstance(
-            movieTitle: String?,
-            posterPath: String,
-            overview: String,
-            releaseDate: String,
-            voteAverage: Double
         ) : DetailFragment{
-            val args = Bundle().apply{
-                putString("Title", movieTitle)
-                putString("Poster_Path", posterPath )
-                putString("Overview", overview)
-                putString("Release_Date", releaseDate)
-                putDouble("Vote_Average", voteAverage)
-            }
+            val args = Bundle().apply{}
             return DetailFragment().apply {  arguments = args }
         }
     }
